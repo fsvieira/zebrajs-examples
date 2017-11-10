@@ -74,7 +74,15 @@ Rules:
     '          (letter B) (letter R) '          '
     '          '          (letter E) (letter B) '
     '
-) {%
+) 
+/*
+    WARNING: This is a restricted javascript code has transformation language,
+    it will transform the output of query results (only valid results).
+    
+    The plan is to deprecate this language and introduce a new transformation 
+    language, so this will soon be deprecated.
+*/
+{% 
     function toString (r) {
         var str = "";
         for (var i=1; i<r.data.length-1; i++) {
