@@ -1,2 +1,2 @@
-# zebrajs-examples
+# zebrajs examples
 Zebrajs examples

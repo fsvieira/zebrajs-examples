@@ -1,0 +1,17 @@
+{
+  "name": "zm",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "zebrajs": "^1.0.7"
+  },
+  "devDependencies": {
+    "zebrajs": "^1.0.24"
+  }
+}
