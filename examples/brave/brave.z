@@ -1,4 +1,7 @@
 /*
+
+RUN: ./zm/zm.js examples/brave/brave.z
+
     http://www.mathsisfun.com/puzzles/a-brave-puzzle.html
 
 Rules: 
