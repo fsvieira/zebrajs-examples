@@ -1,0 +1,6 @@
+(equal 'x 'x)
+
+(set)
+(set 'a (set) ')
+(set 'a (set 'b 'tail ') (set 'a 'tail ') ^(equal 'a 'b))
+

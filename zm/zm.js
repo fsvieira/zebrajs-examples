@@ -69,12 +69,14 @@ function run (filename) {
     });
     
     session.events.on('success', function (branchId) {
-        // console.log("Success");
         const queryBranchId = session.zvs.getObject(branchId, session.zvs.data.global("queryBranchId")).data;
 
         if (queryIds.indexOf(queryBranchId) !== -1) {
-            const functions = session.zvs.getObject(queryBranchId, session.zvs.data.global("queryFunctions")).data;
-            
+            // const functions = session.zvs.getObject(queryBranchId, session.zvs.data.global("queryFunctions")).data;
+
+            const queryBranch = session.zvs.branches.getBranch(queryBranchId);
+            const functions = queryBranch.func?[queryBranch.func]:[];
+
             if (functions.length > 0) {
                 functions.forEach(function (f) {
                     try {

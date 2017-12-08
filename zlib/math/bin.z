@@ -1,0 +1,69 @@
+[collections/list]
+
+# Bin is in reverse order, most significant digit is at right
+(bin)
+(bin 0 (bin))
+(bin 1 (bin))
+(bin 0 (bin ' '))
+(bin 1 (bin ' '))
+
+// TODO: we should make clear that this table is for binary number system
+// as other number system share the same symbols and wrong results will happen.
+// ex. ((bin 0) + (bin 0) + (bin 0) = ...)
+(0 + 0 + 0 = 0 0)
+(0 + 0 + 1 = 1 0)
+(0 + 1 + 0 = 1 0)
+(0 + 1 + 1 = 0 1)
+(1 + 0 + 0 = 1 0)
+(1 + 0 + 1 = 0 1)
+(1 + 1 + 0 = 0 1)
+(1 + 1 + 1 = 1 1)
+
+((bin) + (bin) + 0 = (bin) (list))
+((bin) + (bin) + 1 = (bin 1 (bin)) (list))
+
+((bin) + (bin 'y 'yt) + 0 = (bin 'y 'yt) (list))
+((bin 'x 'xt) + (bin) + 0 = (bin 'x 'xt) (list))
+
+
+((bin) + (bin 'y 'yt) + 1 = (bin 'r 'rt)
+    (list (0 + 'y + 1 = 'r 'c)
+        (list ((bin) + 'yt + 'c = 'rt ')
+            (list)
+        )
+    )
+)
+
+((bin 'x 'xt) + (bin) + 1 = (bin 'r 'rt)
+    (list ('x + 0 + 1 = 'r 'c)
+        (list ('xt + (bin) + 'c = 'rt ')
+            (list)
+        )
+    )
+)
+
+((bin 'x 'xt) + (bin 'y 'yt) + 'carry = (bin 'r 'rt)
+    (list ('x + 'y + 'carry = 'r 'c)
+        (list ('xt + 'yt + 'c = 'rt ')
+            (list)
+        )
+    )
+)
+
+
+# shift left
+(equal 'x 'x)
+
+('a << 'end 'end 'a (list))
+
+('a << 'end 'counter (bin 0 'ar) ^(equal 'end 'counter) 
+    (list ('counter + (bin 1 (bin)) + 0 = 'r ')
+        (list ('a << 'end 'r 'ar ')
+            (list)
+        )
+    )
+)
+
+
+
+

@@ -1,0 +1,125 @@
+[math/dec]
+
+# x + y = 10
+
+?('x + 'y + 0 = (dec 0 (dec 1 (dec))) ')
+/*
+    WARNING: This is a restricted javascript code has transformation language,
+    it will transform the output of query results (only valid results).
+    
+    The plan is to deprecate this language and introduce a new transformation 
+    language, so this will soon be deprecated.
+*/
+{% 
+    function getDigit (d) {
+        return d.data[1].data;
+    }
+    
+    function toDecimal (dec, m) {
+        m = m || 1;
+        
+        if (dec.data.length === 1) {
+            return 0;
+        }
+        
+        return toDecimal(dec.data[2], m*10) + getDigit(dec) * m;
+    }
+    
+    function toString (r) {
+        return toDecimal(r.data[0]) + " + " 
+            + toDecimal(r.data[2]) + " = " + toDecimal(r.data[6]);
+    }
+    
+    return {
+        query: "x + y = 10",
+        result: toString(result)
+    };
+%}
+
+
+('x + 'y + 'z = 'r
+    ('x + 'y + 0 = 'a ')
+    ('a + 'z + 0 = 'r ')
+)
+
+?('x + 'y + 'z = (dec 0 (dec 1 (dec))) ' ')
+{% 
+    function getDigit (d) {
+        return d.data[1].data;
+    }
+    
+    function toDecimal (dec, m) {
+        m = m || 1;
+        
+        if (dec.data.length === 1) {
+            return 0;
+        }
+        
+        return toDecimal(dec.data[2], m*10) + getDigit(dec) * m;
+    }
+    
+    function toString (r) {
+        return toDecimal(r.data[0]) + " + " 
+            + toDecimal(r.data[2]) + " + "
+            + toDecimal(r.data[4]) +
+            " = " + toDecimal(r.data[6]);
+    }
+    
+    return {
+        query: "x + y + z = 10",
+        result: toString(result)
+    };
+%}
+
+/*
+    Equation:
+        x + y = 10
+        z + y = 5
+        z != x
+*/
+
+('x = 'x)
+('x != 'y ^('x = 'y))
+
+(equation
+    ('x + 'y + 0 = (dec 0 (dec 1 (dec))) ')
+    ('z + 'y + 0 = (dec 5 (dec)) ')
+    ('x != 'z) 
+)
+
+?(equation ' ' ')
+{% 
+    function getDigit (d) {
+        return d.data[1].data;
+    }
+    
+    function toDecimal (dec, m) {
+        m = m || 1;
+        
+        if (dec.data.length === 1) {
+            return 0;
+        }
+        
+        return toDecimal(dec.data[2], m*10) + getDigit(dec) * m;
+    }
+    
+    function addToString (add) {
+        return toDecimal(add.data[0]) + " + " 
+        + toDecimal(add.data[2]) +
+        " = " + toDecimal(add.data[6]);
+    }
+    
+    function toString (r) {
+        var n = r.data[3];
+        
+        return addToString(r.data[1]) + "\n" + addToString(r.data[2]) + "\n" +
+            toDecimal(n.data[0]) + " != " + toDecimal(n.data[2]);
+    }
+    
+    return {
+        query: "x + y = 10; z + y = 5; z != x;",
+        result: toString(result)
+    };
+%}
+
+    
